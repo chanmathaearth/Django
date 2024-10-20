@@ -34,27 +34,16 @@
 -   **ตัวอย่าง View**:
     -   **`index` view**: แสดงหน้าแรกของแอปพลิเคชัน โดยใช้ `HttpResponse` ส่งข้อความกลับไป
         
-        python
-        
-        Copy code
-        
         `def index(request):
             return HttpResponse("This is the index page of polls app")` 
         
     -   **`detail` view**: แสดงรายละเอียดของ question โดยใช้ path parameter (`question_id`) ที่ส่งเข้ามา
         
-        python
-        
-        Copy code
-        
+
         `def detail(request, question_id):
             return HttpResponse("You're looking at question %s." % question_id)` 
         
 -   **การกำหนด URL**: ใช้ไฟล์ `/polls/urls.py` เพื่อกำหนด path ของแต่ละ view
-    
-    python
-    
-    Copy code
     
     `urlpatterns = [
         path("", views.index, name="index"),
@@ -70,10 +59,6 @@
 -   **การสร้าง Template**:
     -   สร้างโฟลเดอร์ `/polls/templates/` และสร้างไฟล์ `index.html` ในโฟลเดอร์นี้
     -   ตัวอย่างโค้ดในไฟล์ template:
-        
-        html
-        
-        Copy code
         
         `<html>
             <head>
@@ -95,10 +80,6 @@
 -   **การตั้งค่า Template Path ใน `settings.py`**:
     -   เพิ่ม path ของโฟลเดอร์ templates ใน `settings.py`
         
-        python
-        
-        Copy code
-        
         `import os
         SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
         
@@ -113,19 +94,11 @@
 -   **ตัวอย่าง HttpResponse**:
     -   ส่งข้อความกลับไปหา client เมื่อเข้า view นั้นๆ
         
-        python
-        
-        Copy code
-        
         `def vote(request, question_id):
             return HttpResponse("You're voting on question %s." % question_id)` 
         
 -   **การจัดการข้อผิดพลาดด้วย Http404**:
     -   เมื่อไม่พบข้อมูลที่ผู้ใช้ร้องขอ เช่น question ที่มี `question_id` ไม่อยู่ในฐานข้อมูล
-        
-        python
-        
-        Copy code
         
         `from django.http import Http404
         def detail(request, question_id):
@@ -150,16 +123,9 @@
 -   **ตัวอย่าง**:
     -   แก้ไขจาก:
         
-        html
-        
-        Copy code
-        
         `<li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>` 
         
     -   เป็น:
         
-        html
-        
-        Copy code
         
         `<li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>`
